@@ -23,15 +23,15 @@ gulp.task('brow', () => {
 gulp.task('less', () => {
 	return gulp.src(['src/**/*.less'])
 		.pipe( less() )
-		.pipe(gulp.dest('dist'));
+		.pipe( gulp.dest('dist') );
 });
 
 // less压缩
 gulp.task('zip', ['less'], () => {
-    return gulp.src(['dist/**/*.css'])
+    return gulp.src(['dist/**/*.css', '!dist/**/*.min.css'])
         .pipe( cssmin() )
         .pipe( rename({suffix: '.min'}) )
-        .pipe(gulp.dest('dist'));
+        .pipe( gulp.dest('dist') );
 });
 
 // 自动编译
@@ -44,6 +44,6 @@ gulp.task('watch', () => {
             // console.log('File ' + file + ' was ' + e.type);
             gulp.src( file )
                 .pipe( less() )
-                .pipe(gulp.dest('dist' + match[1]));
+                .pipe( gulp.dest('dist' + match[1]) );
         });
 });
